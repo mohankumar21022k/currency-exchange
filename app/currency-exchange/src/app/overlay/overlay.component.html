@@ -1,0 +1,41 @@
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Exchange Rates
+    </ng-template>
+    <div>
+      <mat-form-field>
+        <mat-label>Convert From</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency1">
+          <mat-option *ngFor="let currency of filterOptions1()" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Convert To</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency2">
+          <mat-option *ngFor="let currency of filterOptions2()" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary"
+        (click)="getConversionRate(selectedCurrency1,selectedCurrency2, 'quantity')">Convert</button>
+      <div *ngIf="conversionInProgress">
+        {{quantity}}{{selectedCurrency1}}={{convertedRate}} {{selectedCurrency2}}
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab #secondTab>
+    <ng-template mat-tab-label>
+      Historical Exchange Rates
+    </ng-template>
+    <button mat-raised-button color="primary" (click)="getHistoricalData()">Plot</button>
+    <ng-container *ngIf="secondTab.isActive;">
+      <h1 *ngIf="enableGraph">Graph</h1>
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>

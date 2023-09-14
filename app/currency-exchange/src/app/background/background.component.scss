@@ -1,0 +1,13 @@
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place the background behind content */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional - makes the background fixed */
+  background-position: center;
+  overflow: hidden; /* Hide any overflow content */
+}
