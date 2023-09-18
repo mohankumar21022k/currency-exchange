@@ -15,12 +15,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { LoaderService } from './loader.service';
+import { NgChartsModule } from 'ng2-charts';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BackgroundComponent,
-    OverlayComponent
+    OverlayComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +42,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatFormFieldModule
-  ],
-  providers: [],
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    NgChartsModule ,
+],
+  providers: [LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

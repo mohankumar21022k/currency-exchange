@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoaderEnabled } from './loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +10,16 @@ export class ApiService {
   private apiUrl = 'https://api.apilayer.com/currency_data/';
 
   constructor(private http: HttpClient) { }
-
-  getCurrencyList(): Observable<any> {
-    const headers = new HttpHeaders().set('apikey', 'Q8NU9oVIVev011vOV5BEPxwBkZFxWNr1')
+ 
+  @LoaderEnabled()
+   getCurrencyList(): Observable<any> {
+    const headers = new HttpHeaders().set('apikey', 'Q8NU9oVIVev011vOV5BEPxwBkZFxWNr1');
     return this.http.get<any>(this.apiUrl + `list`, { headers });
   }
 
-  getExchangeRates(from: string, to: string, amount: string): Observable<any> {
-    const headers = new HttpHeaders().set('apikey', 'Q8NU9oVIVev011vOV5BEPxwBkZFxWNr1')
+  @LoaderEnabled()
+   getExchangeRates(from: string, to: string, amount: number): Observable<any> {
+    const headers = new HttpHeaders().set('apikey', 'Q8NU9oVIVev011vOV5BEPxwBkZFxWNr1');
     return this.http.get<any>(this.apiUrl + `convert?to=${to}&from=${from}&amount=${amount}`, { headers });
   }
 
