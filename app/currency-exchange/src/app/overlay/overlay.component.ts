@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { LoaderService } from '../loader.service';
@@ -9,10 +9,7 @@ import { LoaderService } from '../loader.service';
   styleUrls: ['./overlay.component.scss']
 })
 
-export class OverlayComponent implements OnInit {
-  @Output() from = new EventEmitter<string>();
-  @Output() to = new EventEmitter<string>();
-  
+export class OverlayComponent implements OnInit {  
   constructor(
     private apiService: ApiService,
     public loaderService: LoaderService
@@ -21,8 +18,10 @@ export class OverlayComponent implements OnInit {
   public enableGraph: boolean = false;
   public conversionInProgress: boolean = false
   public convertedRate: number = 0;
-  public selectedCurrency1: string = 'INR';
-  public selectedCurrency2: string = 'USD';
+  public selectedCurrency1: string = 'USD';
+  public selectedCurrency2: string = 'INR';
+  public sc1: string = 'USD';
+  public sc2: string = 'INR';
   public amount: number = 0;
   public options1: any;
   public options2: any;
@@ -41,9 +40,7 @@ export class OverlayComponent implements OnInit {
     });
   }
 
-  public getHistoricalData(sc1: string, sc2: string): void {
-    this.from.emit(sc1);
-    this.to.emit(sc2);
+  public getHistoricalData(): void {
     this.enableGraph = true
   }
 

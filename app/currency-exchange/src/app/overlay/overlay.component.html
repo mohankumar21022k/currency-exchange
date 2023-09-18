@@ -48,7 +48,7 @@
     </ng-template>
     <mat-form-field class=" select-form-field">
       <mat-label>Conversion From</mat-label>
-      <mat-select [(ngModel)]="selectedCurrency1">
+      <mat-select [(ngModel)]="sc1">
         <mat-option *ngFor="let currency of filterOptions1()" [value]="currency.code">
           {{ currency.name }}
         </mat-option>
@@ -57,7 +57,7 @@
 
     <mat-form-field class="select-form-field">
       <mat-label>Conversion To</mat-label>
-      <mat-select [(ngModel)]="selectedCurrency2">
+      <mat-select [(ngModel)]="sc2">
         <mat-option *ngFor="let currency of filterOptions2()" [value]="currency.code">
           {{ currency.name }}
         </mat-option>
@@ -73,10 +73,10 @@
       <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
       <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
     </mat-form-field>
-    <button mat-raised-button class="plot-button" color="primary" (click)="getHistoricalData(selectedCurrency1, selectedCurrency2)">Plot</button>
+    <button mat-raised-button class="plot-button" color="primary" (click)="getHistoricalData()">Plot</button>
     <ng-container *ngIf="secondTab.isActive && enableGraph">
       <!-- <mat-spinner  [diameter]="50"></mat-spinner> -->
-      <app-chart></app-chart>
+      <app-chart [from]="sc1" [to]="sc2"></app-chart>
     </ng-container>
   </mat-tab>
 </mat-tab-group>
