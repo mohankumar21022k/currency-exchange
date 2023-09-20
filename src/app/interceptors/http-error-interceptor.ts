@@ -19,8 +19,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         errorMessage = `Error: ${error.error.message}`;
                     } else {
                         // server-side error
-                        if (error.status === 401) {
-                            errorMessage = 'Please contact your support team with error code: 401'
+                        if (error.status === 429 || error.status === 401) {
+                            errorMessage = `Please contact your support team with error code: ${error.status}`
                         } else {
                             errorMessage = 'Something Went Wrong, try again or contact your support team'
                         }
