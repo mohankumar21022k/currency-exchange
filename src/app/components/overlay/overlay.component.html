@@ -85,8 +85,7 @@
         <mat-label>Range</mat-label>
         <mat-date-range-input [disabled]="true" 
           matTooltip="Feature will be available soon"
-          [formGroup]="historicalDataForm" 
-          [rangePicker]="historicalDatePicker">
+          [formGroup]="historicalDataForm">
           <input matStartDate 
             placeholder="Start date" 
             formControlName="start">
@@ -95,8 +94,7 @@
             formControlName="end">
         </mat-date-range-input>
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix 
-          [for]="historicalDatePicker">
+        <mat-datepicker-toggle matIconSuffix>
         </mat-datepicker-toggle>
         <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
       </mat-form-field>
