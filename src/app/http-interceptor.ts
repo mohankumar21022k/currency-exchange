@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-
-import { LoaderService } from './loader.service';
-
 import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+import { LoaderService } from './services/loader.service';
 
 @Injectable()
 export class LoaderHttpInterceptor implements HttpInterceptor {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
 import { OverlayComponent } from '../overlay/overlay.component';
 
 @Component({
@@ -25,9 +24,9 @@ export class BackgroundComponent implements OnInit {
     this.openDialog()
   }
 
-  openDialog(): void {
+  public openDialog(): void {
     this.dialog.open(OverlayComponent, {
-      width: '800px', // Set the width as needed
+      width: '800px',
       disableClose: true
     });
   }

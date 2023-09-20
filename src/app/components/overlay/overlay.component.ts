@@ -1,7 +1,7 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ApiService } from '../api.service';
-import { LoaderService } from '../loader.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
+import { LoaderService, ApiService } from '../../services';
+import { Currencies, CurrencyConversionData, CurrencyData } from '../../interfaces';
 
 @Component({
   selector: 'app-overlay',
@@ -9,32 +9,32 @@ import { LoaderService } from '../loader.service';
   styleUrls: ['./overlay.component.scss']
 })
 
-export class OverlayComponent implements OnInit {  
+export class OverlayComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     public loaderService: LoaderService
   ) { }
 
-  public conversionInProgress: boolean = false;
+  public requestedConvertionAmount: number = 0;
   public convertedRate: number = 0;
-  public requestedConvertionAmount: number;
+  public amount: number = 0;
   public selectedCurrency1: string = 'USD';
   public selectedCurrency2: string = 'INR';
   public selectedCurrency3: string = 'USD';
   public selectedCurrency4: string = 'INR';
-  public amount: number = 0;
-  public options1: any;
-  public options2: any;
-  public options3: any;
-  public options4: any;
+  public options1: Currencies[] = [];
+  public options2: Currencies[] = [];
+  public options3: Currencies[] = [];
+  public options4: Currencies[] = [];
+  public conversionInProgress: boolean = false;
   public isShow = false;
 
   ngOnInit(): void {
     this.getCurrencyList()
   }
 
-  public getCurrencyList() {
-    this.apiService.getCurrencyList().subscribe((data) => {
+  public getCurrencyList(): void {
+    this.apiService.getCurrencyList().subscribe((data: CurrencyData) => {
       const transformedArray = Object.entries(data.currencies).map(([code, name]) => ({ code, name }));
       this.options1 = transformedArray;
       this.options2 = transformedArray;
@@ -45,13 +45,13 @@ export class OverlayComponent implements OnInit {
 
   public getConversionRate(currencyConvertFrom: string, currencyConvertTo: string, amount: number): void {
     this.requestedConvertionAmount = amount;
-    this.apiService.getExchangeRates(currencyConvertFrom, currencyConvertTo, amount).subscribe((data) => {
+    this.apiService.getExchangeRates(currencyConvertFrom, currencyConvertTo, amount).subscribe((data: CurrencyConversionData) => {
       this.convertedRate = data.result
       this.isShow = true;
     });
   }
 
-  public filterOptions(options: any, selectedCurrency: string): { code: string, name: string }[] {
+  public filterOptions(options: any, selectedCurrency: string): Currencies[] {
     return options ? options.filter((option: { code: string, name: string }) => option.code !== selectedCurrency) : [];
   }
 
@@ -60,7 +60,7 @@ export class OverlayComponent implements OnInit {
     end: new FormControl(new Date(2023, 8, 18)),
   });
 
-  get loaderEnabled() {
+  get loaderEnabled(): boolean {
     return this.loaderService.loaderEnabled;
   }
 }

@@ -1,30 +1,23 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
+import { BackgroundComponent } from './components';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent, BackgroundComponent],
+      imports: [MatDialogModule]
+    });
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+  });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'currency-exchange'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('currency-exchange');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('currency-exchange app is running!');
+    expect(component).toBeTruthy();
   });
 });

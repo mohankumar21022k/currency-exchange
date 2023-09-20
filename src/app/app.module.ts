@@ -16,10 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ChartComponent } from './chart/chart.component';
-import { BackgroundComponent } from './background/background.component';
-import { OverlayComponent } from './overlay/overlay.component';
-import { LoaderService } from './loader.service';
+import { BackgroundComponent, OverlayComponent, ChartComponent } from './components';
+import { LoaderService } from './services/loader.service';
 
 @NgModule({
   declarations: [

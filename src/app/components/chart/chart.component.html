@@ -1,0 +1,12 @@
+<div class="center" 
+    *ngIf="noHistory; else chart">
+    <h2><b>Conversion history will be added soon</b></h2>
+</div>
+<div class="chart">
+    <ng-template #chart>
+        <canvas baseChart 
+            [data]="lineChartData"
+            [type]="lineChartType">
+        </canvas>
+    </ng-template>
+</div>

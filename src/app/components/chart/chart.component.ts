@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit, OnChanges  {
+export class ChartComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   @Input() from: string;
   @Input() to: string;
@@ -15,7 +15,6 @@ export class ChartComponent implements OnInit, OnChanges  {
   public lineChartData: ChartConfiguration['data'];
   public keys: string[] = [];
   public values: number[] = [];
-  public data: any;
   public lineChartType: ChartType = 'line';
   public noHistory: boolean = false
   public historicalData = {
@@ -92,6 +91,7 @@ export class ChartComponent implements OnInit, OnChanges  {
       "Aug 21, 2023": 83.090
     }
   }
+  public data: any;
 
   constructor() { }
 
@@ -112,8 +112,8 @@ export class ChartComponent implements OnInit, OnChanges  {
   }
 
   public setKeyValueForGraph() {
-    this.keys = Object.keys(this.data); // Extract keys into an array
-    this.values = Object.values(this.data); // Extract values into an array
+    this.keys = Object.keys(this.data);
+    this.values = Object.values(this.data);
     this.lineChartData = {
       datasets: [
         {
