@@ -1,0 +1,82 @@
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      Exchange Rates
+    </ng-template>
+    <div>
+      <mat-form-field class="select-form-field">
+        <mat-label>Convert From</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency1">
+          <mat-option *ngFor="let currency of filterOptions(options1, selectedCurrency2)" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="select-form-field">
+        <mat-label>Convert To</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency2">
+          <mat-option *ngFor="let currency of filterOptions(options2, selectedCurrency1)" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="input-form-field">
+        <mat-label>Amount</mat-label>
+        <input matInput required min="1" type="number" [(ngModel)]="amount">
+        <button *ngIf="amount" matSuffix mat-icon-button aria-label="Clear" (click)="amount=0">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <button [disabled]="(!amount)" mat-raised-button class="get-button" color="primary"
+        (click)="getConversionRate(selectedCurrency1,selectedCurrency2, amount)">Convert</button>
+      <div *ngIf="loaderEnabled" class="center">
+        <mat-spinner [diameter]="50"></mat-spinner>
+      </div>
+      <div class="center">
+        <h2 *ngIf="isShow">
+          {{ requestedConvertionAmount }} {{ selectedCurrency1 }} = {{ convertedRate }} {{ selectedCurrency2 }}
+        </h2>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab #secondTab>
+    <div style="width: auto;">
+      <ng-template mat-tab-label>
+        Historical Exchange Rates
+      </ng-template>
+      <mat-form-field class=" select-form-field">
+        <mat-label>Exchange Rates From</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency3">
+          <mat-option *ngFor="let currency of filterOptions(options3, selectedCurrency4)" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="select-form-field">
+        <mat-label>To</mat-label>
+        <mat-select [(ngModel)]="selectedCurrency4">
+          <mat-option *ngFor="let currency of filterOptions(options4, selectedCurrency3)" [value]="currency.code">
+            {{ currency.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="date-picker-form-field ">
+        <mat-label>Range</mat-label>
+        <mat-date-range-input [disabled]="true" matTooltip="Feature will be available soon"
+          [formGroup]="historicalDataForm" [rangePicker]="campaignOnePicker">
+          <input matStartDate placeholder="Start date" formControlName="start">
+          <input matEndDate placeholder="End date" formControlName="end">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+      </mat-form-field>
+      <ng-container *ngIf="secondTab.isActive">
+        <app-chart [from]="selectedCurrency3" [to]="selectedCurrency4"></app-chart>
+      </ng-container>
+    </div>
+  </mat-tab>
+</mat-tab-group>

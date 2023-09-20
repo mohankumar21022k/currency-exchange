@@ -28,6 +28,7 @@ export class BackgroundComponent implements OnInit {
   openDialog(): void {
     this.dialog.open(OverlayComponent, {
       width: '800px', // Set the width as needed
+      disableClose: true
     });
   }
 }

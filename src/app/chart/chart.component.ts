@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnChanges  {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
   @Input() from: string;
   @Input() to: string;
@@ -18,7 +18,7 @@ export class ChartComponent implements OnInit {
   public data: any;
   public lineChartType: ChartType = 'line';
   public noHistory: boolean = false
-  public hisData = {
+  public historicalData = {
     "EUR/USD": {
       "Sep 18, 2023": 1.0680,
       "Sep 17, 2023": 1.0668,
@@ -95,8 +95,17 @@ export class ChartComponent implements OnInit {
 
   constructor() { }
 
+  ngOnChanges() {
+    this.noHistory = false
+    this.data = this.getObjectByKey(this.historicalData, `${this.from}/${this.to}`)
+    if (this.data != undefined) {
+      this.setKeyValueForGraph()
+    }
+  }
+
   ngOnInit(): void {
-    this.data = this.getObjectByKey(this.hisData, `${this.from}/${this.to}`)
+    console.log(`${this.from}/${this.to}`)
+    this.data = this.getObjectByKey(this.historicalData, `${this.from}/${this.to}`)
     if (this.data != undefined) {
       this.setKeyValueForGraph()
     }
@@ -108,7 +117,7 @@ export class ChartComponent implements OnInit {
     this.lineChartData = {
       datasets: [
         {
-          data: this.values,
+          data: this.values.reverse(),
           label: `${this.from} - ${this.to}`,
           backgroundColor: 'rgba(148,159,177,0.2)',
           borderColor: 'rgba(148,159,177,1)',
@@ -119,35 +128,11 @@ export class ChartComponent implements OnInit {
           fill: 'false',
         }
       ],
-      labels: this.keys,
+      labels: this.keys.reverse(),
     };
   }
 
-  public lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5,
-      },
-    },
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      y: {
-        position: 'left',
-      },
-      y1: {
-        position: 'right',
-        grid: {
-          color: 'rgba(255,0,0,0.3)',
-        },
-        ticks: {
-          color: 'red',
-        },
-      },
-    },
-  };
-
   public getObjectByKey(object: Record<string, any>, targetKey: string): any {
-    console.log('targetKeyyyyyyyy',targetKey)
     if (object.hasOwnProperty(targetKey)) {
       return object[targetKey];
     } else {

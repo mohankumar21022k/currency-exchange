@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { finalize, map, catchError } from 'rxjs/operators'
+import { map, catchError } from 'rxjs/operators'
 
 @Injectable()
 export class LoaderService {
@@ -19,9 +19,7 @@ export class LoaderService {
   public static hideLoader() {
     LoaderService.loaderEnabled = false;
   }
-
 }
-
 
 /*  --Decorator LoaderEnabled--
 Use @LoaderEnabled() above any method that returns an observable.
@@ -37,17 +35,13 @@ export function LoaderEnabled(): any {
     descriptor.value = function () {
 
       LoaderService.showLoader();
-      console.log('**InjectedCode-begin--LOADERON', propertyKey);
-
       return original.apply(this, arguments)
         .pipe(
           map((res) => {
-            console.log('**InjectedCode-map--LOADEROFF', propertyKey);
             LoaderService.hideLoader();
             return res;
           }),
           catchError((err) => {
-            console.log('**InjectedCode-err--LOADEROFF', propertyKey);
             LoaderService.hideLoader();
             throw err;
           })
@@ -55,5 +49,4 @@ export function LoaderEnabled(): any {
     };
     return descriptor;
   };
-
 }

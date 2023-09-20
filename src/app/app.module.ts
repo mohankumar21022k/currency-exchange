@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BackgroundComponent } from './background/background.component';
-import { OverlayComponent } from './overlay/overlay.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -17,10 +12,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { LoaderService } from './loader.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgChartsModule } from 'ng2-charts';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { ChartComponent } from './chart/chart.component';
+import { BackgroundComponent } from './background/background.component';
+import { OverlayComponent } from './overlay/overlay.component';
+import { LoaderService } from './loader.service';
 
 @NgModule({
   declarations: [
@@ -51,4 +50,5 @@ import { ChartComponent } from './chart/chart.component';
   providers: [LoaderService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
