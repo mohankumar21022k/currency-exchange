@@ -10,11 +10,6 @@ import { Currencies, CurrencyConversionData, CurrencyData } from '../../interfac
 })
 
 export class OverlayComponent implements OnInit {
-  constructor(
-    private apiService: ApiService,
-    public loaderService: LoaderService
-  ) { }
-
   public requestedConvertionAmount: number = 0;
   public convertedRate: number = 0;
   public amount: number = 0;
@@ -28,26 +23,42 @@ export class OverlayComponent implements OnInit {
   public options4: Currencies[] = [];
   public conversionInProgress: boolean = false;
   public isShow = false;
+  public errorMessage = ''
+
+  constructor(
+    private apiService: ApiService,
+    public loaderService: LoaderService
+  ) { }
 
   ngOnInit(): void {
-    this.getCurrencyList()
+    this.getCurrencyList();
   }
 
   public getCurrencyList(): void {
-    this.apiService.getCurrencyList().subscribe((data: CurrencyData) => {
-      const transformedArray = Object.entries(data.currencies).map(([code, name]) => ({ code, name }));
-      this.options1 = transformedArray;
-      this.options2 = transformedArray;
-      this.options3 = transformedArray;
-      this.options4 = transformedArray;
+    this.apiService.getCurrencyList().subscribe((data: CurrencyData | Error) => {
+      if (data instanceof Error) {
+        this.errorMessage = data.message;
+        this.isShow = false;
+      } else {
+        const transformedArray = Object.entries(data.currencies).map(([code, name]) => ({ code, name }));
+        this.options1 = transformedArray;
+        this.options2 = transformedArray;
+        this.options3 = transformedArray;
+        this.options4 = transformedArray;
+      }
     });
   }
 
   public getConversionRate(currencyConvertFrom: string, currencyConvertTo: string, amount: number): void {
     this.requestedConvertionAmount = amount;
-    this.apiService.getExchangeRates(currencyConvertFrom, currencyConvertTo, amount).subscribe((data: CurrencyConversionData) => {
-      this.convertedRate = data.result
-      this.isShow = true;
+    this.apiService.getExchangeRates(currencyConvertFrom, currencyConvertTo, amount).subscribe((data: CurrencyConversionData | Error) => {
+      if (data instanceof Error) {
+        this.errorMessage = data.message;
+        this.isShow = false;
+      } else {
+        this.convertedRate = data.result;
+        this.isShow = true;
+      }
     });
   }
 

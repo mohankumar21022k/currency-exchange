@@ -15,13 +15,11 @@ export class BackgroundComponent implements OnInit {
   ngOnInit(): void {
     // Define an array of image filenames in the assets folder
     const imageFilenames = ['img1.jpg', 'img2.jpg', 'img3.jpg'];
-
     // Choose a random index from the array
     const randomIndex = Math.floor(Math.random() * imageFilenames.length);
-
     // Construct the path to the selected image
     this.backgroundImagePath = `assets/${imageFilenames[randomIndex]}`;
-    this.openDialog()
+    this.openDialog();
   }
 
   public openDialog(): void {

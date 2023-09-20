@@ -53,6 +53,7 @@
         <h2 *ngIf="isShow">
           {{ requestedConvertionAmount }} {{ selectedCurrency1 }} = {{ convertedRate }} {{ selectedCurrency2 }}
         </h2>
+        <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
       </div>
     </div>
   </mat-tab>

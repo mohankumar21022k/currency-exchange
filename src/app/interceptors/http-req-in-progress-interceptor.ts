@@ -8,7 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { LoaderService } from './services/loader.service';
+import { LoaderService } from '../services/loader.service';
 
 @Injectable()
 export class LoaderHttpInterceptor implements HttpInterceptor {
