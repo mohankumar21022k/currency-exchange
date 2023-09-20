@@ -18,9 +18,14 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Production server
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Use the application @ http://otto.bot-assignment.s3-website-us-east-1.amazonaws.com/
+
+Features
+1. Calculate exchange rates for wide range of currencies.
+2. See Historical Exchange Rates of 2 currencies on a line graph.
+As of now the historical currency exchange rates for (USD/INR, EUR/USD, GBP/USD) have been added statically.
 
 ## Further help
 
