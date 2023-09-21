@@ -68,7 +68,7 @@ export class OverlayComponent implements OnInit {
 
   historicalDataForm = new FormGroup({
     start: new FormControl(new Date(2023, 7, 21)),
-    end: new FormControl(new Date(2023, 8, 18)),
+    end: new FormControl(new Date(2023, 8, 20)),
   });
 
   get loaderEnabled(): boolean {

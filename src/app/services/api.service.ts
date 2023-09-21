@@ -9,7 +9,7 @@ import { CurrencyData, CurrencyConversionData } from '../interfaces'
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'https://api.apilayer.com/currency_data/';
+  private apiUrl = environment.currencyApiUrl;
 
   constructor(private http: HttpClient) { }
 
